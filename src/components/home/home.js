@@ -15,7 +15,12 @@ class home extends Component {
     }
 
     handleClick = (e) => {
-        axios.get("http://127.0.0.1:5000/account/test", {params: {password: this.state.myText}}).then((res) => {
+        axios.get("http://127.0.0.1:5000/back/account/login", {
+            params: {password: this.state.myText},
+            headers: {
+                'content-type': 'text/html;charset=utf8'
+            }
+        }).then((res) => {
             console.log(res);
             this.setState({myText: res.data.user});
         }).catch((e) => {
@@ -24,7 +29,7 @@ class home extends Component {
     }
 
     handleClick1 = (e) => {
-        axios.post("http://127.0.0.1:5000/users", {password: this.state.username}).then((res) => {
+        axios.post("http://127.0.0.1:5000/back/users/", {password: this.state.username}).then((res) => {
             console.log(res);
             this.setState({username: res.data.user});
         }).catch((e) => {
@@ -34,7 +39,7 @@ class home extends Component {
 
     render() {
         return (
-            <div>首页3000<br/>
+            <div>首页 3000<br/>
                 <input value={this.state.myText} onChange={e => this.setState({myText: e.target.value})}
                        placeholder='get' autoFocus='true' required/>&nbsp;&nbsp;
                 <button onClick={this.handleClick}>get 请求</button>
