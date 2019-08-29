@@ -1,0 +1,42 @@
+div#login {
+  font: {
+    style: italic;
+    weight: bold;
+    size: 25px;
+  }
+  height: 300px;
+  line-height: 50px;
+  width: 400px;
+  margin: 200px auto;
+  border: 2px solid lightblue;
+  border-radius: 20px;
+  text-align: center;
+  input {
+    height: 45px;
+    width: 300px;
+    font-size: 16px;
+    border-radius: 6px;
+    padding: 2px 2px 2px 15px;
+    border: 1px solid #CCCCCC;
+  }
+  button {
+    color: #FFFFFF;
+    height: 50px;
+    width: 317px;
+    font: {
+      size: 16px;
+      weight: bold;
+    }
+    letter-spacing: 5px;
+    margin: 20px 0px 0px 0px;
+    cursor: pointer;
+    background: #02a2e4;
+    border: 0px;
+    border-radius: 6px;
+    &:hover {
+      font: {
+        size: 17px;
+      }
+    }
+  }
+}

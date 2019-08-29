@@ -1,4 +1,32 @@
-div {
+div#header {
+  color: #FFFFFF;
+  height: 80px;
+  line-height: 80px;
+  width: 100%;
+  background: #555555;
+  text-align: center; }
+  div#header > span {
+    color: black;
+    font-size: 15px;
+    font-style: italic; }
+
+div#content {
+  display: flex;
+  justify-content: center; }
+
+div#home-title {
+  width: 100px;
+  height: 80px;
   font-style: italic;
   font-weight: bold;
   font-size: 25px; }
+
+div#home-blank {
+  width: 45%;
+  height: 80px; }
+
+div#home-content {
+  width: 70px;
+  height: 80px; }
+  div#home-content > span {
+    cursor: pointer; }

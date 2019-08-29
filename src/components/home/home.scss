@@ -1,7 +1,46 @@
-div {
-  font: {
-    style: italic;
-    weight: bold;
-    size: 25px;
+// 定义height变量
+$header-height: 80px;
+
+div#header {
+  color: #FFFFFF;
+  height: $header-height;
+  line-height: $header-height;
+  width: 100%;
+  background: #555555;
+  text-align: center;
+  > span {
+    color: black;
+    font: {
+      size: 15px;
+      style: italic;
+    }
+  }
+}
+
+div#content {
+  display: flex;
+  justify-content: center;
+}
+
+div#home {
+  &-title {
+    width: 100px;
+    height: $header-height;
+    font: {
+      style: italic;
+      weight: bold;
+      size: 25px;
+    }
+  }
+  &-blank {
+    width: 45%;
+    height: $header-height;
+  }
+  &-content {
+    width: 70px;
+    height: $header-height;
+    > span {
+      cursor: pointer;
+    }
   }
 }
