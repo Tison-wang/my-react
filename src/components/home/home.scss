@@ -41,6 +41,11 @@ div#home {
     height: $header-height;
     > span {
       cursor: pointer;
+      &:active {
+        top: 1px;
+        left: 1px;
+        position: relative;
+      }
     }
   }
 }

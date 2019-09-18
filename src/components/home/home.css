@@ -30,3 +30,7 @@ div#home-content {
   height: 80px; }
   div#home-content > span {
     cursor: pointer; }
+    div#home-content > span:active {
+      top: 1px;
+      left: 1px;
+      position: relative; }

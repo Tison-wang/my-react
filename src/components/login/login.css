@@ -30,3 +30,7 @@ div#login {
     border-radius: 6px; }
     div#login button:hover {
       font-size: 17px; }
+    div#login button:active {
+      top: 1px;
+      left: 1px;
+      position: relative; }

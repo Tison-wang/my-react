@@ -38,5 +38,10 @@ div#login {
         size: 17px;
       }
     }
+    &:active {
+      top: 1px;
+      left: 1px;
+      position: relative;
+    }
   }
 }

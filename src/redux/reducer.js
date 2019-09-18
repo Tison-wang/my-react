@@ -27,6 +27,15 @@ function addInfo(state = {name: "张三", age: 28}, action) {
     }
 }
 
+function changeTitle(state = "主页", action) {
+    switch (action.type) {
+        case "TEST4":
+            return action.data;
+        default:
+            return state;
+    }
+}
+
 export const finalReducer = combineReducers({
-    addName, addAge, addInfo
+    addName, addAge, addInfo, changeTitle
 });

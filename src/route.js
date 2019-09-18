@@ -1,11 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Router, Route, Switch, Redirect} from 'react-router';
 import Home from './components/home/home';
+import Page1 from './components/Auth/Page1';
+import Page2 from './components/Auth/Page2';
+import {Company, CompanyAddress} from './components/Auth/Page1';
 import Login from './components/login/login';
 import {connect} from 'react-redux';
 import history from "./redux/history";
 
-function requireAuthentication(Component) {
+/*function requireAuthentication(Component) {
 
     // 组件有已登陆的模块 直接返回 (防止从新渲染)
     if (Component.AuthenticatedComponent) {
@@ -66,53 +69,38 @@ function requireAuthentication(Component) {
 
     Component.AuthenticatedComponent = connect(mapStateToProps, mapDispatchToProps)(AuthenticatedComponent);
     return Component.AuthenticatedComponent;
+}*/
+
+function HomePage(props) {
+    return <Home portal_title={"第一页"}/>;
+}
+
+function Page1HOC() {
+    return <Page1 introduce={"介绍"}/>;
 }
 
 let PortalRouter = (props) => {
-    console.log("props: " + JSON.stringify(props));
     return (
         <Router history={history}>
             <Switch>
                 <Route exact path="/" component={Login}/>
-                <Route exact path='/home' render={() => (
-                    (props.name !== "null") ? (<Home/>) : (<Redirect to="/"/>)
+                <Route children={() => (
+                    (props.name !== "null") ? (
+                        <Route children={() => (
+                            <Switch>
+                                <Route exact path='/home' component={HomePage}/>
+                                <Route exact path='/home/page1' component={Page1HOC}/>
+                                <Route exact path='/home/page1/about' component={Company}/>
+                                <Route exact path='/home/page1/aboutAddress' component={CompanyAddress}/>
+                                <Route path='/home/page2' component={Page2}/>
+                            </Switch>
+                        )}/>
+                    ) : (<Redirect to="/"/>)
                 )}/>
             </Switch>
         </Router>
     )
 };
-
-/*class PortalRouter extends Component {
-
-    componentDidMount() {
-
-    }
-
-    render() {
-        console.log("路由=" + JSON.stringify(store.getState()));
-        console.log("路由=" + JSON.stringify(this.props));
-        // 已登录
-        //if (sessionStorage.getItem("auth") === "true") {
-        return (
-            <Router history={createHashHistory()}>
-                <Switch>
-                    <Route exact path="/" component={Login}/>
-                    <Route exact path='/home' render={() => (
-                        this.props.name !== "null" ? (<Home/>) : (<Redirect to="/"/>)
-                    )}/>
-                </Switch>
-            </Router>
-        )
-        /!*}
-        // 未登录
-        else {
-            return (
-                <Login/>
-            )
-        }*!/
-    }
-
-}*/
 
 // 容器组件
 const mapStateToProps = (state) => ({
