@@ -1,5 +1,7 @@
 import React from 'react';
 import Home from '../home/home';
+import {connect} from "react-redux";
+import {changeTitle_action} from "../../redux/action";
 
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
@@ -30,7 +32,7 @@ function childComponent(props) {
 
 const mapObjectToProps = {
     name: "姓名：张三",
-    title: "标题：react"
+    title1: "标题：react"
 };
 
 const mapObjToProps = (state) => ({
@@ -45,7 +47,8 @@ const WrappedComp = connectHOC(
 class Page2 extends React.Component {
 
     componentDidMount() {
-        document.title = "React-联系";
+        this.props.changeTitle();
+        document.title = this.props.title;
     }
 
     render() {
@@ -55,10 +58,25 @@ class Page2 extends React.Component {
         }
         return <div>
             <Home/>
-            this is page2 @
+            this is page2 @ {this.props.name}
             <WrappedComp temp={"hello"} temp1={JSON.stringify(param)}/>
         </div>
     }
 }
 
-export default Page2;
+// 容器组件
+const mapStateToProps = (state) => ({
+    name: state.addName,
+    title: "页2"
+});
+
+// dispatch接收一个参数，这个参数是action = {动作类别, 动作参数}
+// dispatch内部调用了Reducer并在Reducer执行完毕后执行subscribe注册的callback
+const mapActionToProps = (dispatch) => ({
+    changeTitle: () => dispatch(changeTitle_action("page2"))
+});
+
+export default connect(
+    mapStateToProps,
+    mapActionToProps
+)(Page2);

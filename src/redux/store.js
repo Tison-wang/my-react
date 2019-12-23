@@ -11,7 +11,9 @@ const store = createStore(
     applyMiddleware(thunk)
 );
 
-// store注册监听器，这里的逻辑是打印出变化的state
+// store注册监听器，subscribe接收一个方法为参数，
+// 目的是注册这个方法为dispatch调用后的callback方法
+// 这里的逻辑是打印出变化的state
 store.subscribe(() => {
     console.log("state变化了：");
     console.log(store.getState());

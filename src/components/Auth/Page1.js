@@ -2,17 +2,19 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import Home from '../home/home';
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 class Page1 extends React.Component {
 
     componentDidMount() {
-        document.title = "React-关于";
+        this.props.changeTitle();
+        document.title = this.props.title;
     }
 
     render() {
         return <div>
             <Home/>
-            this is page1./{this.props.introduce}
+            this is page1./{this.props.introduce}-{this.props.name}
             <br/>
             <NavLink to='/home/page1/about' exact>公司简介</NavLink>
             <br/>
@@ -31,7 +33,7 @@ Page1.propTypes = {
 export const Company = () => (
     <div>
         <Page1/>
-        <p>公司简介.....</p>
+        <p>公司简介.....{this.props.name}</p>
     </div>
 )
 
@@ -60,4 +62,20 @@ function Template(props) {
     </div>
 }
 
-export default Page1;
+// 容器组件
+const mapStateToProps = (state) => ({
+    name: state.addName,
+    age: state.addAge,
+    title: "页1"
+});
+
+// dispatch接收一个参数，这个参数是action = {动作类别, 动作参数}
+// dispatch内部调用了Reducer并在Reducer执行完毕后执行subscribe注册的callback
+const mapActionToProps = (dispatch) => ({
+    changeTitle: () => dispatch({type: "TEST4", data: "page1"})
+});
+
+export default connect(
+    mapStateToProps,
+    mapActionToProps
+)(Page1);

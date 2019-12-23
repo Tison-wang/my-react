@@ -7,6 +7,8 @@ import {Company, CompanyAddress} from './components/Auth/Page1';
 import Login from './components/login/login';
 import {connect} from 'react-redux';
 import history from "./redux/history";
+import PropTypes from 'prop-types';
+import {Component} from 'react';
 
 /*function requireAuthentication(Component) {
 
@@ -79,27 +81,41 @@ function Page1HOC() {
     return <Page1 introduce={"介绍"}/>;
 }
 
-let PortalRouter = (props) => {
-    return (
-        <Router history={history}>
-            <Switch>
-                <Route exact path="/" component={Login}/>
-                <Route children={() => (
-                    (props.name !== "null") ? (
-                        <Route children={() => (
-                            <Switch>
-                                <Route exact path='/home' component={HomePage}/>
-                                <Route exact path='/home/page1' component={Page1HOC}/>
-                                <Route exact path='/home/page1/about' component={Company}/>
-                                <Route exact path='/home/page1/aboutAddress' component={CompanyAddress}/>
-                                <Route path='/home/page2' component={Page2}/>
-                            </Switch>
-                        )}/>
-                    ) : (<Redirect to="/"/>)
-                )}/>
-            </Switch>
-        </Router>
-    )
+class PortalRouter extends Component {
+
+    childContextTypes = {
+        store: PropTypes.object    // childContextTypes必须声明  这一句很重要
+    }
+
+    getChildContext() {
+        return {
+            store: this.props.store
+        };
+    }
+
+    render() {
+        return (
+            <Router history={history}>
+                <Switch>
+                    <Route exact path="/" component={Login}/>
+                    <Route children={() => (
+                        (sessionStorage.getItem("auth")) ? (
+                            <Route children={() => (
+                                <Switch>
+                                    <Route exact path='/home' component={HomePage}/>
+                                    <Route exact path='/home/page1' component={Page1HOC}/>
+                                    <Route exact path='/home/page1/about' component={Company}/>
+                                    <Route exact path='/home/page1/aboutAddress' component={CompanyAddress}/>
+                                    <Route path='/home/page2' component={Page2}/>
+                                </Switch>
+                            )}/>
+                        ) : (<Redirect to="/"/>)
+                    )}/>
+                </Switch>
+            </Router>
+        )
+    }
+
 };
 
 // 容器组件

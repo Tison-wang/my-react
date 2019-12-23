@@ -1,8 +1,12 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux';
+import utils from '../utils/crypto';
 
-function addName(state = 'null', action) {
+const nameState = sessionStorage.getItem("auth") ? utils.decrypt(sessionStorage.getItem("name")) : "";
+
+function addName(state = nameState, action) {
     switch (action.type) {
         case "TEST1":
+            sessionStorage.setItem("name", utils.encrypt(action.data));
             return action.data;
         default:
             return state;
@@ -25,6 +29,7 @@ function addInfo(state = {name: "张三", age: 28}, action) {
         default:
             return state;
     }
+
 }
 
 function changeTitle(state = "主页", action) {

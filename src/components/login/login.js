@@ -8,7 +8,7 @@ import './login.scss';
 
 class Login extends Component {
 
-    //声明属性
+    //声明属性（组件调用时在标签中传递用的属性）
     static propTypes = {
         name: PropTypes.string.isRequired,
         age: PropTypes.number.isRequired,
@@ -17,10 +17,16 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {username: '1', myText: '', logout: ''};
+        // 类似 vue 中的 data
+        this.state = {
+            username: '1',
+            myText: '',
+            logout: ''
+        };
     }
 
     componentDidMount() {
+
     }
 
     login = (e) => {
@@ -31,6 +37,7 @@ class Login extends Component {
             if (res.data.msg === "OK") {
                 sessionStorage.setItem("auth", "true");
                 this.props.methodName(this.state.myText);
+                this.props.methodAge(30);
                 history.push('/home');
             }
         }).catch((e) => {
@@ -53,7 +60,7 @@ class Login extends Component {
 
 // 容器组件
 const mapStateToProps = (state) => ({
-    // 参数state内容是reducer中的函数返回后组成的对象
+    // 参数state内容是reducer中的函数返回后组成的对象作为当前state树
     name: state.addName,
     age: state.addAge,
     info: state.addInfo
